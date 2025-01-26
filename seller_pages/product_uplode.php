@@ -14,7 +14,7 @@
 </head>
 
 <body>
-  <form action="" method="post">
+  <form action="#" method="post">
     <div class="bg-gray-300 grid justify-center gap-6 rounded-xl items-center m-auto mt-10 max-w-[700px] p-4">
       <h1 class="m-auto font-semibold">Add New Product</h1>
 
@@ -23,13 +23,13 @@
         <div class="2nd_side grid gap-3">
           <!-- name of the product -->
           <div class="border-1 p-3 rounded border-gray-400 bg-gray-200 grid items-center">
-            <label for="">Product Name : <input type="text" class=" outline-none"
+            <label for="">Product Name : <input name="product_name" type="text" class=" outline-none"
                 placeholder="Enter the product Name"></label>
           </div>
           <!-- description -->
           <div class="border-1 p-3 rounded border-gray-400 bg-gray-200 grid items-center">
             <label for="">Product Description : </label>
-            <textarea name="" id="" class="outline-none" placeholder="Enter the description"></textarea>
+            <textarea name="product_description" id="" class="outline-none" placeholder="Enter the description"></textarea>
 
           </div>
 
@@ -37,7 +37,7 @@
           <div class="border-1 p-3 rounded border-gray-400 bg-gray-200 items-center">
             <p class="text-gray-700 font-semibold">Category</p>
             <label class="text-gray-700 font-semibold flex items-center">
-              <select name="categories[]" id="categories"
+              <select name="categories" id="categories"
                 class="category-select border-1 border-gray-300 rounded-[5px] font-normal outline-none">
                 <!-- Clothing & Fashion -->
                 <option value="clothing">Clothes</option>
@@ -95,7 +95,7 @@
           <!-- pament type -->
           <div class="border-1 p-3 rounded border-gray-400 bg-gray-200 grid items-center">
             <label for="">Payment recive type </label>
-            <select name="categories[]" id="categories"
+            <select name="payment_type" id="categories"
               class="category-select border-1 border-gray-300 rounded-[5px] font-normal outline-none">
               <option value="">Online Payment</option>
               <option value="">Cash on delivery</option>
@@ -104,14 +104,14 @@
           </div>
           <!-- total stock -->
           <div class="border-1 p-3 rounded border-gray-400 bg-gray-200 grid items-center">
-            <label for="">Total stock : <input type="number" class=" outline-none"
+            <label for="">Total stock : <input name="product_total_stock" type="number" class=" outline-none"
                 placeholder="Enter the product Name"></label>
           </div>
           <!-- reffandable or not -->
           <div class="border-1 p-3 rounded border-gray-400 bg-gray-200 grid items-center">
             <label for="" class="flex justify-between">Refundable :
-              <p class="flex gap-3"><input type="radio" name="Reffandable" id="">Yes</p>
-              <p class="flex gap-3"><input type="radio" name="Reffandable" id="">No</p>
+              <p class="flex gap-3"><input type="radio" name="Reffandable" id="" value="Yes">Yes</p>
+              <p class="flex gap-3"><input type="radio" name="Reffandable" id="" value="No">No</p>
             </label>
           </div>
 
@@ -229,17 +229,17 @@
             <label class="text-gray-700 font-semibold flex">
               <div class="font-normal grid text-[13px]">
                 <label for="">Min</label>
-                <input type="number" class="outline-none" placeholder="Min amount">
+                <input name="product_max_price" type="number" class="outline-none" placeholder="Min amount">
               </div>
               <div class="font-normal grid text-[13px]">
                 <label for="">Min</label>
-                <input type="number" class="outline-none" placeholder="Min amount">
+                <input name="product_min_price" type="number" class="outline-none" placeholder="Min amount">
               </div>
             </label>
           </div>
 
           <div class="h-fit border-1 p-3 rounded border-gray-400 bg-gray-200 ">
-            <label for="">Product Address : <input type="text" class="w-full outline-none"
+            <label for="">Product Address : <input name="product_pickup_address" type="text" class="w-full outline-none"
                 placeholder="Enter product Address"></label>
           </div>
 
@@ -263,7 +263,7 @@
           </div>
 
           <!-- Default First Row of Specification -->
-          <div
+          <!-- <div
             class="specificationRow text-gray-500 border-1 pt-1 p-3 rounded border-gray-400 bg-gray-200 grid grid-cols-[1fr_1fr_50px] items-center">
             <input type="text" placeholder="Enter The Specification" class="outline-none specification-name">
             <input type="text" placeholder="Enter The Description" class="outline-none specification-description">
@@ -273,7 +273,7 @@
                   d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z" />
               </svg>
             </button>
-          </div>
+          </div> -->
 
         </div>
 
@@ -283,7 +283,7 @@
           Add Specification
         </button>
         <!-- Add the submit button -->
-        <button id="submitBtn" type="submit" class="mt-3 p-2 bg-blue-500 text-white rounded">Submit</button>
+        <button name="product_uplod_btn" id="submitBtn" type="submit" class="mt-3 p-2 bg-blue-500 text-white rounded">Submit</button>
 
 
       </div>
@@ -296,30 +296,29 @@
 </html>
 
 
-
-
 <script>
   // Get the add button and specification container
   const addSpecButton = document.getElementById('addSpecButton');
   const specificationContainer = document.getElementById('specificationContainer');
-  let the_new_specifaction_row = 1;
+  let the_new_specifaction_row = 0;
+
   // Function to add a new specification row
   addSpecButton.addEventListener('click', () => {
     the_new_specifaction_row++;
-    console.log(`total row is ${the_new_specifaction_row}`);
+    console.log(`Total rows: ${the_new_specifaction_row}`);
 
     const newRow = document.createElement('div');
     newRow.className = 'specificationRow text-gray-500 border-1 p-3 rounded border-gray-400 bg-gray-200 grid grid-cols-[1fr_1fr_50px] items-center';
 
     newRow.innerHTML = `
-          <input type="text" placeholder="Enter The Specification" class="outline-none specification-name">
-          <input type="text" placeholder="Enter The Description" class="outline-none specification-description">
-          <button type="button" class="delete-btn text-gray-500">
-            <svg width="30" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
-              <path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/>
-            </svg>
-          </button>
-        `;
+      <input type="text" name="specifications[${the_new_specifaction_row}][name]" placeholder="Enter The Specification" class="outline-none specification-name">
+      <input type="text" name="specifications[${the_new_specifaction_row}][description]" placeholder="Enter The Description" class="outline-none specification-description">
+      <button type="button" class="delete-btn text-gray-500">
+        <svg width="30" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
+          <path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/>
+        </svg>
+      </button>
+    `;
 
     // Add the new row to the container
     specificationContainer.appendChild(newRow);
@@ -328,13 +327,74 @@
     const deleteButton = newRow.querySelector('.delete-btn');
     deleteButton.addEventListener('click', () => {
       newRow.remove(); // Remove the specification row when the delete button is clicked
+      the_new_specifaction_row--; // Decrement the row count
     });
   });
 
-  // Add delete functionality to the first row
-  const firstDeleteButton = document.querySelector('.delete-btn');
-  firstDeleteButton.addEventListener('click', () => {
-    const firstRow = firstDeleteButton.closest('.specificationRow');
-    firstRow.remove(); // Remove the first row when delete button is clicked
+  // This function will convert all the specifications to JSON format when submitting the form
+  function collectSpecificationsAsJSON() {
+    const specifications = [];
+    const specificationRows = document.querySelectorAll('.specificationRow');
+    
+    specificationRows.forEach(row => {
+      const name = row.querySelector('.specification-name').value;
+      const description = row.querySelector('.specification-description').value;
+
+      // Only add non-empty specifications
+      if (name && description) {
+        specifications.push({ name, description });
+      }
+    });
+
+    return JSON.stringify(specifications);
+  }
+
+  // Listen to the form submit and append the specifications JSON data
+  document.getElementById('productForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent form from submitting immediately
+
+    // Collect specifications as JSON
+    const specificationsJSON = collectSpecificationsAsJSON();
+    
+    // Add the specifications JSON to a hidden input field in the form
+    const specificationsInput = document.createElement('input');
+    specificationsInput.type = 'hidden';
+    specificationsInput.name = 'specifications_json';
+    specificationsInput.value = specificationsJSON;
+
+    this.appendChild(specificationsInput); // Append the input to the form
+
+    // Now you can submit the form
+    // this.submit(); // Actually submit the form
   });
 </script>
+
+<?php
+
+  if(isset($_POST['product_uplod_btn'])){
+    echo "buton is clicked";
+    // $specification = $_POST["specifications"];
+    // echo $specification . "ok";
+    if (isset($_POST['specifications'])) {
+      $product_name           =$_POST['product_name'];      
+      $product_description    =$_POST['product_description'];              
+      $categories             =$_POST['categories'];    
+      $payment_type           =$_POST['payment_type'];      
+      $product_total_stock    =$_POST['product_total_stock'];              
+      $Reffandable            =$_POST['Reffandable'];      
+      $product_max_price      =$_POST['product_max_price'];            
+      $product_min_price      =$_POST['product_min_price'];            
+      $product_pickup_address =$_POST['product_pickup_address'];   
+      echo "__".$product_name ."__".$product_description ."__".$categories ."__".$payment_type ."__".$product_total_stock ."__".$Reffandable ."__".$product_max_price ."__".$product_min_price ."__".$product_pickup_address;
+
+      $specifications = $_POST['specifications'];
+      foreach ($specifications as $spec) {
+        $spec_name = $spec['name'];
+        $spec_description = $spec['description'];
+        echo '----'.$spec_name.'---'.$spec_description.'---';
+      }
+    }
+  }
+
+
+?>
