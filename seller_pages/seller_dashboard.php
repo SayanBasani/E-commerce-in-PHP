@@ -21,13 +21,15 @@ include 'check_seller.php';
     <!-- Sidebar -->
     <div class="flex h-screen bg-blue-100 text-gray-800">
         <div class="w-64 bg-blue-200 p-6">
-            <h2 class="text-2xl font-semibold text-center text-blue-800 mb-8">Seller Dashboard</h2>
+            <h2 class="text-2xl font-semibold text-center text-blue-800 mb-8">Dashboard</h2>
             <ul class="space-y-6">
-                <li><a href="#" class="block py-2 px-4 rounded-lg hover:bg-blue-300">Home</a></li>
-                <li><a href="#" class="block py-2 px-4 rounded-lg hover:bg-blue-300">Manage Products</a></li>
-                <li><a href="#" class="block py-2 px-4 rounded-lg hover:bg-blue-300">Orders</a></li>
-                <li><a href="#" class="block py-2 px-4 rounded-lg hover:bg-blue-300">Profile</a></li>
-                <li><a href="#" class="block py-2 px-4 rounded-lg hover:bg-blue-300">Settings</a></li>
+                <li><a href="#" class="h-12 items-center justify-center flex bg-white p-2 rounded-lg shadow-lg hover:shadow-xl hover:scale-105 transition-all block py-2 px-4 rounded-lg hover:bg-blue-300">Home</a></li>
+                <li><a href="#" class="h-12 items-center justify-center flex bg-white p-2 rounded-lg shadow-lg hover:shadow-xl hover:scale-105 transition-all block py-2 px-4 rounded-lg hover:bg-blue-300">Manage Products</a></li>
+                <li><a href="product_uplode.php" class="h-12 items-center justify-center flex bg-white p-2 rounded-lg shadow-lg hover:shadow-xl hover:scale-105 transition-all block py-2 px-4 rounded-lg hover:bg-blue-300">Upload Product</a></li>
+                <li><a href="#" class="h-12 items-center justify-center flex bg-white p-2 rounded-lg shadow-lg hover:shadow-xl hover:scale-105 transition-all block py-2 px-4 rounded-lg hover:bg-blue-300">Orders</a></li>
+                <li><a href="#" class="h-12 items-center justify-center flex bg-white p-2 rounded-lg shadow-lg hover:shadow-xl hover:scale-105 transition-all block py-2 px-4 rounded-lg hover:bg-blue-300">Profile</a></li>
+                <li><a href="#" class="h-12 items-center justify-center flex bg-white p-2 rounded-lg shadow-lg hover:shadow-xl hover:scale-105 transition-all block py-2 px-4 rounded-lg hover:bg-blue-300">Settings</a></li>
+                
             </ul>
         </div>
 
@@ -35,7 +37,7 @@ include 'check_seller.php';
         <div class="flex-1 p-8">
             <!-- Top bar -->
             <div class="flex justify-between items-center mb-8">
-                <h1 class="text-3xl font-bold text-gray-800">Welcome Back, Seller!</h1>
+                <h1 class="text-3xl font-bold text-gray-800">Welcome <?php echo "$c_seller_name"; ?></h1>
                 <div class="flex items-center space-x-4">
                     <input type="text" placeholder="Search..."
                         class="p-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400">

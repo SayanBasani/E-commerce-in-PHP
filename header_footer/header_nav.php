@@ -96,7 +96,7 @@ if (isset($_SESSION['user_email'])) {
     </ul>
   </nav>
 
-  <div id="sidebar" class="fixed top-0 left-0 w-64 h-full bg-gray-800 text-white transform -translate-x-full transition-transform duration-300 ease-in-out z-50">
+  <div id="sidebar" class="fixed top-0 left-0 w-64 h-full bg-gray-200 font-semibold transform -translate-x-full transition-transform duration-300 ease-in-out z-50">
     <div class="flex justify-between p-4">
         <div></div>
         <button id="close-btn">
@@ -106,12 +106,11 @@ if (isset($_SESSION['user_email'])) {
         </button>
     </div>
     <ul class="space-y-4 p-4">
-        <li><a href="http://localhost/Program/Ecom/seller_pages/seller_dashboard.php" class="block">For Seller</a></li>
         <?php if ($user_type == 'seller') {
-          echo '<li><a href="http://localhost/Program/Ecom/seller_pages/seller_dashboard.php">For Seller</a></li>';
+          echo '<li><a href="http://localhost/Program/Ecom/seller_pages/seller_dashboard.php" class="bg-white p-2 rounded-lg shadow-lg hover:shadow-xl hover:scale-105 transition-all font-semibold block">For Seller</a></li>';
         } ?>
-        <li><a href="#" class="block">Option 2</a></li>
-        <li><a href="#" class="block">Option 3</a></li>
+        <li><a href="#" class="bg-white p-2 rounded-lg shadow-lg hover:shadow-xl hover:scale-105 transition-all font-semibold block">Option 2</a></li>
+        <li><a href="#" class="bg-white p-2 rounded-lg shadow-lg hover:shadow-xl hover:scale-105 transition-all font-semibold block">Option 3</a></li>
     </ul>
 </div>
 

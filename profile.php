@@ -8,13 +8,19 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <?php
   $user = array();
+  $query = array();
   include "connection.php";
   include "header_footer/header_nav.php";
   // include "../header_footer/header_nav.css";
   if (isset($_SESSION['user_email'])) {
     // echo "Welcome, $user_email! Your user ID is $user_type";
-    $query = "select * from users where email = '{$user_email}'";
-    // echo $query;
+
+    if ($user_type == "seller") {
+      $query = "select * from sellers where email = '{$user_email}'";
+    } else if ($user_type == "user") {
+      $query = "select * from users where email = '{$user_email}'";
+    }
+    // echo "Query: " . $query . "<br>";
     $result = mysqli_query($conn, $query);
     $user = mysqli_fetch_array($result);
     $username = $user["username"];
@@ -33,8 +39,9 @@
 </head>
 
 <body class="min-h-screen ">
-  
-  <div class="bg-[rgb(236_236_236)] flex items-center justify-center min-h-screen  <?php echo $user_email ? 'flex' : 'hidden'; ?>">
+
+  <div
+    class="bg-[rgb(236_236_236)] flex items-center justify-center min-h-screen  <?php echo $user_email ? 'flex' : 'hidden'; ?>">
     <div class="max-w-4xl w-full bg-white rounded-lg shadow-lg overflow-hidden">
       <!-- Header -->
       <div class="flex items-center bg-blue-500 p-6">

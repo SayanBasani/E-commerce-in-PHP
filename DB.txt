@@ -1,0 +1,8 @@
+for data base i use MySql
+
+in This project there is the BD name is ecom.
+Tables are :-
+        1. users
+        2. sellers
+        3. products
+        4. specifications

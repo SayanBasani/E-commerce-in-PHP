@@ -1,6 +1,8 @@
 <?php
-  include '../header_footer/header_nav.php';
-  include 'check_seller.php';
+include '../header_footer/header_nav.php';
+include 'check_seller.php';
+include '../connection.php';
+// echo '' . $user_email . "email";
 ?>
 
 <!DOCTYPE html>
@@ -29,7 +31,8 @@
           <!-- description -->
           <div class="border-1 p-3 rounded border-gray-400 bg-gray-200 grid items-center">
             <label for="">Product Description : </label>
-            <textarea name="product_description" id="" class="outline-none" placeholder="Enter the description"></textarea>
+            <textarea name="product_description" id="" class="outline-none"
+              placeholder="Enter the description"></textarea>
 
           </div>
 
@@ -97,9 +100,9 @@
             <label for="">Payment recive type </label>
             <select name="payment_type" id="categories"
               class="category-select border-1 border-gray-300 rounded-[5px] font-normal outline-none">
-              <option value="">Online Payment</option>
-              <option value="">Cash on delivery</option>
-              <option value="">Both</option>
+              <option value="Online Payment">Online Payment</option>
+              <option value="Cash on delivery">Cash on delivery</option>
+              <option value="Both">Both</option>
             </select>
           </div>
           <!-- total stock -->
@@ -283,7 +286,8 @@
           Add Specification
         </button>
         <!-- Add the submit button -->
-        <button name="product_uplod_btn" id="submitBtn" type="submit" class="mt-3 p-2 bg-blue-500 text-white rounded">Submit</button>
+        <button name="product_uplod_btn" id="submitBtn" type="submit"
+          class="mt-3 p-2 bg-blue-500 text-white rounded">Submit</button>
 
 
       </div>
@@ -335,7 +339,7 @@
   function collectSpecificationsAsJSON() {
     const specifications = [];
     const specificationRows = document.querySelectorAll('.specificationRow');
-    
+
     specificationRows.forEach(row => {
       const name = row.querySelector('.specification-name').value;
       const description = row.querySelector('.specification-description').value;
@@ -350,12 +354,12 @@
   }
 
   // Listen to the form submit and append the specifications JSON data
-  document.getElementById('productForm').addEventListener('submit', function(event) {
+  document.getElementById('productForm').addEventListener('submit', function (event) {
     event.preventDefault(); // Prevent form from submitting immediately
 
     // Collect specifications as JSON
     const specificationsJSON = collectSpecificationsAsJSON();
-    
+
     // Add the specifications JSON to a hidden input field in the form
     const specificationsInput = document.createElement('input');
     specificationsInput.type = 'hidden';
@@ -371,30 +375,58 @@
 
 <?php
 
-  if(isset($_POST['product_uplod_btn'])){
-    echo "buton is clicked";
-    // $specification = $_POST["specifications"];
-    // echo $specification . "ok";
-    if (isset($_POST['specifications'])) {
-      $product_name           =$_POST['product_name'];      
-      $product_description    =$_POST['product_description'];              
-      $categories             =$_POST['categories'];    
-      $payment_type           =$_POST['payment_type'];      
-      $product_total_stock    =$_POST['product_total_stock'];              
-      $Reffandable            =$_POST['Reffandable'];      
-      $product_max_price      =$_POST['product_max_price'];            
-      $product_min_price      =$_POST['product_min_price'];            
-      $product_pickup_address =$_POST['product_pickup_address'];   
-      echo "__".$product_name ."__".$product_description ."__".$categories ."__".$payment_type ."__".$product_total_stock ."__".$Reffandable ."__".$product_max_price ."__".$product_min_price ."__".$product_pickup_address;
+if (isset($_POST['product_uplod_btn'])) {
+  echo "buton is clicked";
+  // $specification = $_POST["specifications"];
+  // echo $specification . "ok";
 
+  $product_name = $_POST['product_name'];
+  $product_description = $_POST['product_description'];
+  $categories = $_POST['categories'];
+  $payment_type = $_POST['payment_type'];
+  $product_total_stock = $_POST['product_total_stock'];
+  $Reffandable = $_POST['Reffandable'];
+  $product_max_price = $_POST['product_max_price'];
+  $product_min_price = $_POST['product_min_price'];
+  $product_pickup_address = $_POST['product_pickup_address'];
+  if (isset($_POST['specifications']) || empty($product_name) || empty($product_description) || empty($categories) || empty($payment_type) || empty($product_total_stock) || empty($Reffandable) || empty($product_max_price) || empty($product_min_price) || empty($product_pickup_address)) {
+    $product_query = "INSERT INTO products (uploder_email, product_name, product_description, categories, payment_type,  product_total_stock, refundable, product_max_price, product_min_price,  product_pickup_address
+                      ) VALUES ('$user_email','$product_name','$product_description','$categories','$payment_type','$product_total_stock','$Reffandable','$product_max_price','$product_min_price','$product_pickup_address')";
+    echo $product_query;
+    // $result = mysqli_query($conn ,$product_query);
+    // echo $result['id'];
+    if (mysqli_query($conn, $product_query)) {
+      $product_id = mysqli_insert_id($conn);
+      // echo "last product id is --> $product_id";
       $specifications = $_POST['specifications'];
       foreach ($specifications as $spec) {
         $spec_name = $spec['name'];
         $spec_description = $spec['description'];
-        echo '----'.$spec_name.'---'.$spec_description.'---';
+        // echo '----'.$spec_name.'---'.$spec_description.'---';
+        $specification_query = "INSERT INTO specifications (product_id, spec_name, spec_description) VALUES ('$product_id', '$spec_name', '$spec_description')";
+        if (mysqli_query($conn, $specification_query)) {
+          echo "sucessfully all data uploded";
+        } else {
+          echo "error is -->" . mysqli_error($conn) . " ";
+        }
       }
+      // header("Location: http://localhost/Program/Ecom/seller_pages/product_uplod_sucessfull.php?pid=$product_id");
+      // exit;
+      ?>
+      <script>
+        location.replace("http://localhost/Program/Ecom/seller_pages/product_uplod_sucessfull.php?pid=<?php echo "$product_id"; ?>")
+      </script>
+      <?php
+      exit;
+    } else {
+      echo "error is " . mysqli_error($conn) . " ";
     }
+
+
+  } else {
+    echo "the field have to fill ";
   }
+}
 
 
 ?>
