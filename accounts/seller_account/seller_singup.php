@@ -55,7 +55,7 @@ include_once '../../connection.php';
       </div>
 
       <button type="submit" class="btn">Sign Up as Seller</button>
-      <p class="form_text">Already have a seller account? <a href="seller_login.php">Log in</a></p>
+      <p class="form_text">Already have a seller account? <a href="./seller_login.php">Log in</a></p>
 
 
       <?php
@@ -96,7 +96,7 @@ include_once '../../connection.php';
                         // echo "<p>Signup successful! You can now <a href='login.php'>login</a>.</p>";
                         // Redirect to seller dashboard
                         // header("Location: http://localhost/Program/Ecom/seller_pages/seller_dashboard.php");
-                        header("Location: http://localhost/Program/Ecom/Dashbord.php");
+                        header("Location: ../../Dashbord.php");
 
 
                         // exit;

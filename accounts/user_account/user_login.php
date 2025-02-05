@@ -71,7 +71,7 @@ $conn->close();
 
       <button type="submit" class="btn" name="login_btn">Login</button>
 
-      <p class="form_text">Don't have an account? <a href="user_signup.php">Sign up</a><a href="http://localhost/Program/Ecom/accounts/seller_account/seller_login.php">___</a></p>
+      <p class="form_text">Don't have an account? <a href="user_signup.php">Sign up</a><a href="../seller_account/seller_login.php">___</a></p>
 
       <?php
       // Display error message if credentials are incorrect

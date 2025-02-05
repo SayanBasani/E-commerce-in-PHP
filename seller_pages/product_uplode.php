@@ -1,4 +1,5 @@
 <?php
+include("./../config.php");
 include '../header_footer/header_nav.php';
 include 'check_seller.php';
 include '../connection.php';
@@ -156,7 +157,7 @@ include '../connection.php';
 
             uploadInput.addEventListener("change", (event) => {
               const files = event.target.files;
-
+              
               // Loop through files and generate previews
               for (const file of files) {
                 const reader = new FileReader();
@@ -295,6 +296,7 @@ include '../connection.php';
 
     </div>
   </form>
+  
 </body>
 
 </html>
@@ -414,7 +416,7 @@ if (isset($_POST['product_uplod_btn'])) {
       // exit;
       ?>
       <script>
-        location.replace("http://localhost/Program/Ecom/seller_pages/product_uplod_sucessfull.php?pid=<?php echo "$product_id"; ?>")
+        location.replace("http://localhost/Program/Ecom/seller_pages/add_product_keywords.php?pid=<?php echo "$product_id"; ?>")
       </script>
       <?php
       exit;

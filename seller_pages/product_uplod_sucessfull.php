@@ -1,4 +1,6 @@
 <?php
+include("./../config.php");
+
 session_start();
 $user_type = "";
 // include '../header_footer/header_nav.php';

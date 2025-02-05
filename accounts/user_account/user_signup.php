@@ -76,7 +76,7 @@ include_once '../../connection.php';
                       
                       echo "<p>Account created successfully! Redirecting...</p>";
                       // header("Location: localhost\Program\Ecom\Dashbord.php");
-                      header("Location: http://localhost/Program/Ecom/Dashbord.php");
+                      header("Location: ..\..\Dashbord.php");
                       // header("Location: ../../Dashbord.php");
                       exit;
                   } else {
