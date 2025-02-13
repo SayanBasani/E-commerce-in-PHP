@@ -48,15 +48,15 @@
                     <ul class="space-y-2">
                         <li class="flex items-center">
                             <i class="fas fa-map-marker-alt mr-2 text-gray-400"></i>
-                            <span>123 E-commerce St, Anytown, USA 12345</span>
+                            <span>123 E-commerce St, Newtown, INDIA 7000002</span>
                         </li>
                         <li class="flex items-center">
                             <i class="fas fa-phone mr-2 text-gray-400"></i>
-                            <span>+1 (555) 123-4567</span>
+                            <span>+91 9845632547,+91 96578452136</span>
                         </li>
                         <li class="flex items-center">
                             <i class="fas fa-envelope mr-2 text-gray-400"></i>
-                            <span>contact@yourstore.com</span>
+                            <span>Ecomers@gmail.com</span>
                         </li>
                     </ul>
                 </div>
@@ -74,7 +74,7 @@
 
             <!-- Bottom Bar -->
             <div class="border-t border-gray-700 mt-8 pt-8 text-sm text-gray-400 text-center">
-                <p>&copy; 2023 Your Store. All rights reserved.</p>
+                <p>&copy; 2025 Your Store. All rights reserved.</p>
             </div>
         </div>
     </footer>

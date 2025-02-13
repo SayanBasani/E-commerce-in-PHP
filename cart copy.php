@@ -1,4 +1,6 @@
-<?php include "header_footer/header_nav.php"; ?>
+<?php 
+include "config.php"; 
+include "header_footer/header_nav.php"; ?>
 <?php
 
 include "connection.php";
@@ -14,8 +16,14 @@ if (isset($_SESSION['user_email'])) {
     // echo "Welcome,you are not logined";
     // header("Location: login.php");
     // exit(); // Stop further script execution
+    echo "<script>alert('Please login first!');</script>";
     echo "<script>window.history.back();</script>";
 }
+
+$min = 100000000000; // Smallest 12-digit number
+$max = 999999999999; // Largest 12-digit number
+
+$cart_id = mt_rand($min, $max);
 
 ?>
 
@@ -30,6 +38,7 @@ if (isset($_SESSION['user_email'])) {
 </head>
 
 <body class="bg-gray-100">
+    <form action="" method="post">  
     <div class="container mx-auto px-4 py-8">
         <h1 class="text-2xl font-bold mb-8">Your Shopping Cart</h1>
         <div class="flex flex-col md:flex-row gap-8">
@@ -71,51 +80,53 @@ if (isset($_SESSION['user_email'])) {
                         <span class="font-bold">Total</span>
                         <span id="total" class="font-bold">$0.00</span>
                     </div>
-                    <button
-                        class="bg-blue-500 text-white py-2 px-4 rounded-lg mt-4 w-full hover:bg-blue-600 transition-colors">Proceed
-                        to Checkout</button>
+                    <!-- <a href="./checkout/checkout.php"> -->
+                        <button name="f_checkout"
+                            class="bg-blue-500 text-white py-2 px-4 rounded-lg mt-4 w-full hover:bg-blue-600 transition-colors">
+                            Proceed to Checkout
+                        </button>
+                    <!-- </a> -->
                 </div>
             </div>
         </div>
     </div>
     <?php
 
-    $cart_qry = "SELECT * FROM cart WHERE user_email = '$user_email'";
+    $cart_qry = "select * from cart where user_email = '$user_email'";
     $cart_result = mysqli_query($conn, $cart_qry);
+    $i = 0;
+    ?>
+    <script>
+        products = [];
+    </script>
+    <?php
+    while ($product = mysqli_fetch_array($cart_result)) {
+        $product_quantity = $product['product_quantity'];
+        $product_id = $product['product_id'];
+        // echo $product_id . "<br>";
+        $product_qry = "select * from products where id = '$product_id'";
+        $product_result = mysqli_query($conn, $product_qry);
+        $product_result = mysqli_fetch_array($product_result);
+        $product_name = $product_result['product_name'];
+        $product_price = $product_result['product_min_price'];
+        // echo "$product_name --- $product_price <br>";
+        ?>
+        <script>
+            new_product_json = { product_id: '<?php echo $product_id; ?>', id: parseInt('<?php echo $i++; ?>'), name: '<?php echo $product_name; ?>', price: parseFloat('<?php echo $product_price; ?>'), quantity: parseInt('<?php echo $product_quantity; ?>') },
 
-    $products = [];
-
-    if ($cart_result && mysqli_num_rows($cart_result) > 0) {
-        while ($cart_item = mysqli_fetch_assoc($cart_result)) {
-            $product_id = $cart_item['product_id'];
-
-            // Fetch product details in a single query
-            $product_qry = "SELECT product_name, product_min_price FROM products WHERE id = '$product_id'";
-            $product_result = mysqli_query($conn, $product_qry);
-
-            if ($product_result && $product_data = mysqli_fetch_assoc($product_result)) {
-                $products[] = [
-                    "id" => $product_id,
-                    "name" => $product_data['product_name'],
-                    "price" => $product_data['product_min_price'],
-                    "quantity" => 1
-                ];
-            }
-        }
+                products = [...products, new_product_json];
+            console.log(products);
+        </script>
+        <?php
     }
     ?>
-
-    <script>
-        const products = <?php echo json_encode($products, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP); ?>;
-        console.log(products); // Debugging
-    </script>
     <script>
         // Sample product data
-        const products = [
-            { id: 1, name: "Product Name 1", price: 19.99, quantity: 1 },
-            { id: 2, name: "Product Name 2", price: 29.99, quantity: 1 },
-            { id: 3, name: "Product Name 3", price: 39.99, quantity: 1 }
-        ];
+        // const products = [
+        //     { id: 1, name: "Product Name 1", price: 19.99, quantity: 1 },
+        //     { id: 2, name: "Product Name 2", price: 29.99, quantity: 1 },
+        //     { id: 3, name: "Product Name 3", price: 39.99, quantity: 1 }
+        // ];
 
         const cartItems = document.getElementById('cart-items');
         const subtotalElement = document.getElementById('subtotal');
@@ -127,8 +138,6 @@ if (isset($_SESSION['user_email'])) {
             let subtotal = 0;
 
             products.forEach(product => {
-                console.log(product);
-                
                 const total = product.price * product.quantity;
                 subtotal += total;
 
@@ -144,15 +153,28 @@ if (isset($_SESSION['user_email'])) {
                         <td class="py-4">
                             <div class="flex items-center">
                                 <button class="border rounded-md py-2 px-4 mr-2 decrease-qty" aria-label="Decrease quantity">-</button>
-                                <input type="number" value="${product.quantity}" min="1" max="99" class="w-16 text-center border rounded-md py-2 px-2 quantity" aria-label="Product quantity">
+                                <input type="number" name="p_quentity" value="${product.quantity}" min="1" max="99" class="w-16 text-center border rounded-md py-2 px-2 quantity" aria-label="Product quantity">
                                 <button class="border rounded-md py-2 px-4 ml-2 increase-qty" aria-label="Increase quantity">+</button>
                             </div>
                         </td>
                         <td class="py-4 product-total">$${total.toFixed(2)}</td>
                         <td class="py-4">
-                            <button class="text-red-500 hover:text-red-700 remove-item">Remove</button>
+                            <a href="./remove_from_cart.php?pid=<?php echo $product_id ?>">
+                                <button class="text-red-500 hover:text-red-700 remove-item">Remove</button>
+                            </a>
                         </td>
                     </tr>
+                   
+
+                    <?php 
+                    echo $cart_id; 
+                    if (isset($_POST['p_quentity'])){
+                        $p_quentity = $_POST['p_quentity'];
+                        // $p_quentity = '<script>  </script>';
+                        $gen_checkout_qury = "INSERT INTO checkout (cart_id, user_email, product_id, quantity) VALUES ('$cart_id', '$user_email', $product_id', '$p_quentity')";
+                        echo "<br> <br> $gen_checkout_qury <br> <br>";
+                    }
+                    ?>
                 `;
             });
 
@@ -165,8 +187,6 @@ if (isset($_SESSION['user_email'])) {
         }
 
         function updateProductQuantity(productId, newQuantity) {
-            console.log("i am in");
-            
             const product = products.find(p => p.id === productId);
             if (product) {
                 product.quantity = newQuantity;
@@ -214,6 +234,15 @@ if (isset($_SESSION['user_email'])) {
         // Initial cart update
         updateCart();
     </script>
+    </form>
 </body>
 
 </html>
+
+<?php
+
+if(isset($_POST['f_checkout'])){
+    echo "<br> <br> hello <br> <br>";
+}
+
+?>

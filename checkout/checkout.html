@@ -3,151 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Checkout - Your E-commerce Store</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Order Success</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body class="bg-gray-100">
-    <div class="container mx-auto px-4 py-8">
-        <h1 class="text-3xl font-bold mb-8 text-center">Checkout</h1>
-        
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <!-- Shipping Information -->
-            <div class="bg-white p-6 rounded-lg shadow-md">
-                <h2 class="text-xl font-semibold mb-4">Shipping Information</h2>
-                <div id="shipping-info" class="bg-gray-100 p-4 rounded-md">
-                    <p><strong>Full Name:</strong> <span id="fullNameDisplay">Not set</span></p>
-                    <p><strong>Email:</strong> <span id="emailDisplay">Not set</span></p>
-                    <p><strong>Phone Number:</strong> <span id="phoneNumberDisplay">Not set</span></p>
-                    <p><strong>Address:</strong> <span id="addressDisplay">Not set</span></p>
-                    <p><strong>PIN Code:</strong> <span id="pinCodeDisplay">Not set</span></p>
-                </div>
-                <button onclick="openModal('shipping-modal')" class="mt-4 bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
-                    Edit Shipping Info
-                </button>
-            </div>
-            
-            <!-- Payment Information -->
-            <div class="bg-white p-6 rounded-lg shadow-md">
-                <h2 class="text-xl font-semibold mb-4">Payment Information</h2>
-                <div id="payment-info" class="bg-gray-100 p-4 rounded-md">
-                    <p><strong>Card Number:</strong> <span id="cardNumberDisplay">Not set</span></p>
-                    <p><strong>Cardholder Name:</strong> <span id="cardholderNameDisplay">Not set</span></p>
-                    <p><strong>Expiry Date:</strong> <span id="expiryDateDisplay">Not set</span></p>
-                    <p><strong>CVV:</strong> ***</p>
-                </div>
-                <button onclick="openModal('payment-modal')" class="mt-4 bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
-                    Edit Payment Info
-                </button>
-            </div>
-        </div>
-
-        <div class="mt-8 text-center">
-            <button onclick="placeOrder()" class="bg-green-600 text-white py-2 px-8 rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2">
-                Place Order
-            </button>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+    <div class="bg-white shadow-md rounded-lg p-8 max-w-md w-full">
+        <h1 class="text-2xl font-bold text-center text-green-600">Order Placed Successfully!</h1>
+        <p class="mt-4 text-center text-gray-600">Thank you for your order. Your order number is <span class="font-semibold">#123456</span>.</p>
+        <p class="mt-2 text-center text-gray-600">You will receive a confirmation email shortly.</p>
+        <div class="mt-6">
+            <a href="/" class="block text-center bg-green-500 text-white rounded-lg py-2 hover:bg-green-600 transition duration-200">Continue Shopping</a>
         </div>
     </div>
-
-    <!-- Shipping Modal -->
-    <div id="shipping-modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden">
-        <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
-            <h2 class="text-xl font-semibold mb-4">Edit Shipping Information</h2>
-            <form id="shippingForm" onsubmit="return saveInfo(this, 'shipping')">
-                <div class="space-y-4">
-                    <div>
-                        <label for="fullName" class="block text-sm font-medium text-gray-700">Full Name</label>
-                        <input type="text" id="fullName" name="fullName" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
-                    </div>
-                    <div>
-                        <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-                        <input type="email" id="email" name="email" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
-                    </div>
-                    <div>
-                        <label for="phoneNumber" class="block text-sm font-medium text-gray-700">Phone Number</label>
-                        <input type="tel" id="phoneNumber" name="phoneNumber" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
-                    </div>
-                    <div>
-                        <label for="address" class="block text-sm font-medium text-gray-700">Address</label>
-                        <textarea id="address" name="address" rows="3" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"></textarea>
-                    </div>
-                    <div>
-                        <label for="pinCode" class="block text-sm font-medium text-gray-700">PIN Code</label>
-                        <input type="text" id="pinCode" name="pinCode" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
-                    </div>
-                </div>
-                <div class="flex justify-end space-x-2 mt-4">
-                    <button type="button" onclick="closeModal('shipping-modal')" class="px-4 py-2 bg-gray-300 text-gray-800 rounded-md hover:bg-gray-400">Cancel</button>
-                    <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">Save</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <!-- Payment Modal -->
-    <div id="payment-modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden">
-        <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
-            <h2 class="text-xl font-semibold mb-4">Edit Payment Information</h2>
-            <form id="paymentForm" onsubmit="return saveInfo(this, 'payment')">
-                <div class="space-y-4">
-                    <div>
-                        <label for="cardNumber" class="block text-sm font-medium text-gray-700">Card Number</label>
-                        <input type="text" id="cardNumber" name="cardNumber" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
-                    </div>
-                    <div>
-                        <label for="cardholderName" class="block text-sm font-medium text-gray-700">Cardholder Name</label>
-                        <input type="text" id="cardholderName" name="cardholderName" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
-                    </div>
-                    <div>
-                        <label for="expiryDate" class="block text-sm font-medium text-gray-700">Expiry Date</label>
-                        <input type="text" id="expiryDate" name="expiryDate" required placeholder="MM/YY" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
-                    </div>
-                    <div>
-                        <label for="cvv" class="block text-sm font-medium text-gray-700">CVV</label>
-                        <input type="password" id="cvv" name="cvv" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
-                    </div>
-                </div>
-                <div class="flex justify-end space-x-2 mt-4">
-                    <button type="button" onclick="closeModal('payment-modal')" class="px-4 py-2 bg-gray-300 text-gray-800 rounded-md hover:bg-gray-400">Cancel</button>
-                    <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">Save</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <script>
-        function openModal(modalId) {
-            document.getElementById(modalId).classList.remove('hidden');
-        }
-
-        function closeModal(modalId) {
-            document.getElementById(modalId).classList.add('hidden');
-        }
-
-        function saveInfo(form, type) {
-            const formData = new FormData(form);
-            for (let [key, value] of formData.entries()) {
-                document.getElementById(key + 'Display').textContent = value || 'Not set';
-            }
-            if (type === 'payment') {
-                document.getElementById('cardNumberDisplay').textContent = maskCardNumber(formData.get('cardNumber'));
-            }
-            closeModal(type + '-modal');
-            return false;
-        }
-
-        function maskCardNumber(cardNumber) {
-            return '*'.repeat(cardNumber.length - 4) + cardNumber.slice(-4);
-        }
-
-        function placeOrder() {
-            const shippingInfo = document.getElementById('shipping-info');
-            const paymentInfo = document.getElementById('payment-info');
-            if (shippingInfo.textContent.includes('Not set') || paymentInfo.textContent.includes('Not set')) {
-                alert('Please fill in all required information before placing the order.');
-            } else {
-                alert('Order placed successfully!');
-            }
-        }
-    </script>
 </body>
 </html>

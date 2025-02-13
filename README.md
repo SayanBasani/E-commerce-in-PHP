@@ -20,9 +20,31 @@ i use php , html ,tailwind css, js
 # Table CREATE command :
 
 ## users :-
-        **
+        CREATE TABLE users (
+                id int NOT NULL AUTO_INCREMENT,
+                username varchar(100) NOT NULL,
+                email varchar(100) NOT NULL,
+                mobile varchar(15) NOT NULL,
+                password varchar(255) NOT NULL,
+                created_at timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+                PRIMARY KEY (id),
+                UNIQUE KEY email (email)
+                );
+
 ## sellers :-
-        **
+        CREATE TABLE sellers (
+                id int NOT NULL AUTO_INCREMENT,
+                business_name varchar(255) NOT NULL,
+                username varchar(255) NOT NULL,
+                email varchar(255) NOT NULL,
+                mobile varchar(20) NOT NULL,
+                website varchar(255) DEFAULT NULL,
+                password varchar(255) NOT NULL,
+                created_at timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+                PRIMARY KEY (id),
+                UNIQUE KEY email (email)
+                );
+
 ## product :-
         CREATE TABLE products (
         id INT AUTO_INCREMENT PRIMARY KEY,

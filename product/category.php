@@ -54,7 +54,7 @@ include "./../header_footer/header_nav.php";
 
             <!-- Category 5 -->
             <div class="bg-white rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:scale-105">
-                <img src="/placeholder.svg?height=200&width=300" alt="Sports & Outdoors" class="w-full h-48 object-cover">
+                <img src="https://img.freepik.com/free-photo/sports-tools_53876-138077.jpg" alt="Sports & Outdoors" class="w-full h-48 object-cover">
                 <div class="p-4">
                     <h3 class="text-xl font-semibold mb-2">Sports & Outdoors</h3>
                     <a href="#" class="text-blue-600 hover:underline">Shop Now</a>
@@ -63,7 +63,7 @@ include "./../header_footer/header_nav.php";
 
             <!-- Category 6 -->
             <div class="bg-white rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:scale-105">
-                <img src="/placeholder.svg?height=200&width=300" alt="Books & Media" class="w-full h-48 object-cover">
+                <img src="https://static.vecteezy.com/system/resources/thumbnails/044/280/984/small_2x/stack-of-books-on-a-brown-background-concept-for-world-book-day-photo.jpg" alt="Books & Media" class="w-full h-48 object-cover">
                 <div class="p-4">
                     <h3 class="text-xl font-semibold mb-2">Books & Media</h3>
                     <a href="#" class="text-blue-600 hover:underline">Shop Now</a>
@@ -72,21 +72,14 @@ include "./../header_footer/header_nav.php";
 
             <!-- Category 7 -->
             <div class="bg-white rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:scale-105">
-                <img src="/placeholder.svg?height=200&width=300" alt="Toys & Games" class="w-full h-48 object-cover">
+                <img src="https://t4.ftcdn.net/jpg/02/49/11/21/360_F_249112148_PQNY20GbzstYyMomghGyCNOBUrp18KkN.jpg" alt="Toys & Games" class="w-full h-48 object-cover">
                 <div class="p-4">
                     <h3 class="text-xl font-semibold mb-2">Toys & Games</h3>
                     <a href="#" class="text-blue-600 hover:underline">Shop Now</a>
                 </div>
             </div>
 
-            <!-- Category 8 -->
-            <div class="bg-white rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:scale-105">
-                <img src="/placeholder.svg?height=200&width=300" alt="Automotive" class="w-full h-48 object-cover">
-                <div class="p-4">
-                    <h3 class="text-xl font-semibold mb-2">Automotive</h3>
-                    <a href="#" class="text-blue-600 hover:underline">Shop Now</a>
-                </div>
-            </div>
+
         </div>
     </section>
 </body>

@@ -77,9 +77,9 @@ $pay_row = mysqli_fetch_assoc($shopping_payment_check_result);
                 if ($pay_row > 0) {
                     ?>
                     <div id="payment-info" class="bg-gray-100 p-4 rounded-md">
-                        <p><strong>Card Number:</strong> <span id="cardNumberDisplay">Not set</span></p>
-                        <p><strong>Cardholder Name:</strong> <span id="cardholderNameDisplay">Not set</span></p>
-                        <p><strong>Expiry Date:</strong> <span id="expiryDateDisplay">Not set</span></p>
+                        <p><strong>Card Number:</strong> <span id="cardNumberDisplay"><?php echo $pay_row['cardNumber'];?></span></p>
+                        <p><strong>Cardholder Name:</strong> <span id="cardholderNameDisplay"><?php echo $pay_row['cardholderName'];?></span></p>
+                        <p><strong>Expiry Date:</strong> <span id="expiryDateDisplay"><?php echo $pay_row['expiryDate'];?></span></p>
                         <p><strong>CVV:</strong> ***</p>
                     </div>
                     <?php

@@ -50,19 +50,19 @@ include "header_footer/header_nav.php";
             <h2 class="text-3xl font-semibold text-center mb-8">Our Team</h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <div class="bg-white rounded-lg shadow-md p-6 text-center">
-                    <img src="https://as2.ftcdn.net/jpg/03/40/50/97/1000_F_340509733_5MwYU9THVvHgCBuYKZIC8nm5vIoM0dEv.jpg?height=150&width=150" alt="John Doe" class="w-32 h-32 rounded-full mx-auto mb-4">
-                    <h3 class="text-xl font-semibold mb-2">John Doe</h3>
-                    <p class="text-gray-600">Founder & CEO</p>
+                    <img src="./img/sayanbasani.jpg" alt="John Doe" class="w-32 h-32 rounded-full mx-auto mb-4">
+                    <h3 class="text-xl font-semibold mb-2">Sayan Basani</h3>
+                    <p class="text-gray-600">---</p>
                 </div>
                 <div class="bg-white rounded-lg shadow-md p-6 text-center">
-                    <img src="https://as2.ftcdn.net/jpg/03/40/50/97/1000_F_340509733_5MwYU9THVvHgCBuYKZIC8nm5vIoM0dEv.jpg?height=150&width=150" alt="Jane Smith" class="w-32 h-32 rounded-full mx-auto mb-4">
-                    <h3 class="text-xl font-semibold mb-2">Jane Smith</h3>
-                    <p class="text-gray-600">Head of Operations</p>
+                    <img src="./img/raj.jpg" alt="Jane Smith" class="w-32 h-32 rounded-full mx-auto mb-4">
+                    <h3 class="text-xl font-semibold mb-2">Rajkumar Das</h3>
+                    <p class="text-gray-600">---</p>
                 </div>
                 <div class="bg-white rounded-lg shadow-md p-6 text-center">
                     <img src="https://as2.ftcdn.net/jpg/03/40/50/97/1000_F_340509733_5MwYU9THVvHgCBuYKZIC8nm5vIoM0dEv.jpg?height=150&width=150" alt="Mike Johnson" class="w-32 h-32 rounded-full mx-auto mb-4">
-                    <h3 class="text-xl font-semibold mb-2">Mike Johnson</h3>
-                    <p class="text-gray-600">Customer Service Manager</p>
+                    <h3 class="text-xl font-semibold mb-2">Subham Patra</h3>
+                    <p class="text-gray-600">---</p>
                 </div>
             </div>
         </section>

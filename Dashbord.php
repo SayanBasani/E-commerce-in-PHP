@@ -26,7 +26,7 @@ include "header_footer/header_nav.php";
   <!-- Banner -->
   <div class="relative">
     <!-- <img src="/placeholder.svg?height=400&width=1920" alt="Banner" class="w-full h-64 md:h-96 object-cover"> -->
-    <img src="https://picsum.photos/1920/720" alt="Banner" class="w-full h-64 md:h-96 object-cover">
+    <img src="https://www.shutterstock.com/image-vector/ecommerce-website-banner-template-presents-260nw-2252124451.jpg" width="1920" height="720" alt="Banner" class="w-full h-64 md:h-96 object-cover">
     <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
       <div class="text-center">
         <h2 class="text-white text-3xl md:text-5xl font-bold mb-4">Summer Sale</h2>

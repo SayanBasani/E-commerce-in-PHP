@@ -24,7 +24,7 @@
 <div
     class="child bg-white flex flex-col rounded overflow-hidden shadow-md cursor-pointer hover:scale-[1.01] transition-all">
     <div class="w-full">
-        <img src="https://random-image-pepebigotes.vercel.app/api/random-image" alt="Product 1"
+        <img src="fhttps://random-image-pepebigotes.vercel.app/api/random-image" alt="<?php echo $product_name; ?>"
             class="w-full object-cover object-top aspect-[230/307]" />
     </div>
     <div class="p-4 flex-1 flex flex-col">

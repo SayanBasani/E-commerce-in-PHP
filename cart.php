@@ -10,14 +10,17 @@ $user_type = "";
 if (isset($_SESSION['user_email'])) {
     $user_type = $_SESSION['user_type'];
     $user_email = $_SESSION['user_email'];
-    // echo "Welcome, $user_email! Your user ID is $user_type";
 
 } else {
-    // echo "Welcome,you are not logined";
-    // header("Location: login.php");
-    // exit(); // Stop further script execution
+    
+    echo "<script>alert('Please login first!');</script>";
     echo "<script>window.history.back();</script>";
 }
+
+$min = 100000000000; // Smallest 12-digit number
+$max = 999999999999; // Largest 12-digit number
+
+$cart_id = mt_rand($min, $max);
 
 ?>
 
@@ -29,9 +32,15 @@ if (isset($_SESSION['user_email'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your Cart - E-commerce Store</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    
 </head>
+<script>
+    console.log("it is db . js ");
 
+    
+</script>
 <body class="bg-gray-100">
+    <form action="" method="post">  
     <div class="container mx-auto px-4 py-8">
         <h1 class="text-2xl font-bold mb-8">Your Shopping Cart</h1>
         <div class="flex flex-col md:flex-row gap-8">
@@ -47,7 +56,54 @@ if (isset($_SESSION['user_email'])) {
                                 <th class="text-left font-bold">Actions</th>
                             </tr>
                         </thead>
-                        <tbody id="cart-items">
+                        <tbody id="cart_items">
+                            <!-- Cart items will be dynamically inserted here -->
+                            <?php
+
+                                $cart_qry = "select * from cart where user_email = '$user_email'";
+                                $cart_result = mysqli_query($conn, $cart_qry);
+                                $i = 0;
+                                
+
+                                while ($product = mysqli_fetch_array($cart_result)) {
+                                    $product_quantity = $product['product_quantity'];
+                                    $product_id = $product['product_id'];
+                                    $product_quantity = $product['product_quantity'];
+                                    // echo $product_id. "---". $product_quantity . "<br>";
+                                    $product_qry = "select * from products where id = '$product_id'";
+                                    $product_result = mysqli_query($conn, $product_qry);
+                                    $product_result = mysqli_fetch_array($product_result);
+                                    $product_name = $product_result['product_name'];
+                                    $product_price = $product_result['product_min_price'];
+                                    // echo "$product_name --- $product_price <br>";
+                                   
+                            ?>
+
+                            <tr id="<?php echo $product_id; ?>" class="cart_items">
+                                <td class="py-4">
+                                    <div class="flex items-center">
+                                        <img class="h-16 w-16 mr-4" src="" alt="Product image">
+                                        <span class="font-bold"> <?php echo $product_name; ?> </span>
+                                    </div>
+                                </td>
+                                <td class="py-4"><?php echo $product_price ; ?></td>
+                                <td class="py-4">
+                                    <div class="flex items-center">
+                                        <button class="border rounded-md py-2 px-4 mr-2 decrease_qty" >-</button>
+                                        <input type="number" name="p_quentity" value="<?php echo $product_quantity; ?>" min="1" max="99" class="w-16 text-center border rounded-md py-2 px-2 quantity" aria-label="Product quantity">
+                                        <button class="border rounded-md py-2 px-4 ml-2 increase_qty" >+</button>
+                                        <?php echo $product_quantity ; ?> 
+                                    </div>
+                                </td>
+                                <td class="py-4 product_total_price"></td>
+                                <td class="py-4">
+                                    <a href="./remove_from_cart.php?pid=<?php echo $product_id ?>">
+                                        <button class="text-red-500 hover:text-red-700 remove-item">Remove</button>
+                                    </a>
+                                </td>
+                            </tr>
+                            <?php } ?>
+                            
                             <!-- Cart items will be dynamically inserted here -->
                         </tbody>
                     </table>
@@ -74,148 +130,91 @@ if (isset($_SESSION['user_email'])) {
                         <span id="total" class="font-bold">$0.00</span>
                     </div>
                     <a href="./checkout/checkout.php">
-                        <button
+                        <p name="f_checkout"
                             class="bg-blue-500 text-white py-2 px-4 rounded-lg mt-4 w-full hover:bg-blue-600 transition-colors">
                             Proceed to Checkout
-                        </button>
+                        </p>
                     </a>
+                    
                 </div>
             </div>
         </div>
     </div>
-    <?php
+    
+    <?php 
 
-    $cart_qry = "select * from cart where user_email = '$user_email'";
-    $cart_result = mysqli_query($conn, $cart_qry);
-    $i = 0;
+        function cart_update($email , $id , $quentity){
+            echo $email."----".$id;
+        }
     ?>
-    <script>
-        products = [];
-    </script>
-    <?php
-    while ($product = mysqli_fetch_array($cart_result)) {
-        $product_quantity = $product['product_quantity'];
-        $product_id = $product['product_id'];
-        // echo $product_id . "<br>";
-        $product_qry = "select * from products where id = '$product_id'";
-        $product_result = mysqli_query($conn, $product_qry);
-        $product_result = mysqli_fetch_array($product_result);
-        $product_name = $product_result['product_name'];
-        $product_price = $product_result['product_min_price'];
-        // echo "$product_name --- $product_price <br>";
-        ?>
-        <script>
-            new_product_json = { product_id: '<?php echo $product_id; ?>', id: parseInt('<?php echo $i++; ?>'), name: '<?php echo $product_name; ?>', price: parseFloat('<?php echo $product_price; ?>'), quantity: parseInt('<?php echo $product_quantity; ?>') },
-
-                products = [...products, new_product_json];
-            console.log(products);
-        </script>
-        <?php
-    }
-    ?>
+    
     <script>
         // Sample product data
-        // const products = [
-        //     { id: 1, name: "Product Name 1", price: 19.99, quantity: 1 },
-        //     { id: 2, name: "Product Name 2", price: 29.99, quantity: 1 },
-        //     { id: 3, name: "Product Name 3", price: 39.99, quantity: 1 }
-        // ];
-
-        const cartItems = document.getElementById('cart-items');
-        const subtotalElement = document.getElementById('subtotal');
-        const taxesElement = document.getElementById('taxes');
-        const totalElement = document.getElementById('total');
-
-        function updateCart() {
-            cartItems.innerHTML = '';
-            let subtotal = 0;
-
-            products.forEach(product => {
-                const total = product.price * product.quantity;
-                subtotal += total;
-
-                cartItems.innerHTML += `
-                    <tr data-id="${product.id}">
-                        <td class="py-4">
-                            <div class="flex items-center">
-                                <img class="h-16 w-16 mr-4" src="/placeholder.svg?height=64&width=64" alt="Product image">
-                                <span class="font-bold">${product.name}</span>
-                            </div>
-                        </td>
-                        <td class="py-4">$${product.price.toFixed(2)}</td>
-                        <td class="py-4">
-                            <div class="flex items-center">
-                                <button class="border rounded-md py-2 px-4 mr-2 decrease-qty" aria-label="Decrease quantity">-</button>
-                                <input type="number" value="${product.quantity}" min="1" max="99" class="w-16 text-center border rounded-md py-2 px-2 quantity" aria-label="Product quantity">
-                                <button class="border rounded-md py-2 px-4 ml-2 increase-qty" aria-label="Increase quantity">+</button>
-                            </div>
-                        </td>
-                        <td class="py-4 product-total">$${total.toFixed(2)}</td>
-                        <td class="py-4">
-                            <a href="./remove_from_cart.php?pid=<?php echo $product_id ?>">
-                                <button class="text-red-500 hover:text-red-700 remove-item">Remove</button>
-                            </a>
-                        </td>
-                    </tr>
-                `;
-            });
-
-            const taxes = subtotal * 0.1; // Assuming 10% tax rate
-            const total = subtotal + taxes + 10; // Adding $10 for shipping
-
-            subtotalElement.textContent = `$${subtotal.toFixed(2)}`;
-            taxesElement.textContent = `$${taxes.toFixed(2)}`;
-            totalElement.textContent = `$${total.toFixed(2)}`;
+        // const products = [{ id: 1, name: "Product Name 1", price: 19.99, quantity: 1 },{ id: 2, name: "Product Name 2", price: 29.99, quantity: 1 },{ id: 3, name: "Product Name 3", price: 39.99, quantity: 1 }];
+    
+        function runQuery(email,id,product_quantity){
+            let forData = new FormData();
+            forData.append("email",email);
+            forData.append("id",id);
+            forData.append("product_quantity",product_quantity);
+            fetch("cart_update.php",{
+                method:"POST",
+                body: forData
+            }).then(res => res.json())
+            .catch(error => {
+                alert(error);
+            })
         }
+   
+       
+        const cart_items = document.querySelectorAll('.cart_items');
+        console.log(cart_items);
+        
+        cart_items.forEach((element,index) => {
 
-        function updateProductQuantity(productId, newQuantity) {
-            const product = products.find(p => p.id === productId);
-            if (product) {
-                product.quantity = newQuantity;
-                updateCart();
-            }
-        }
-
-        function removeProduct(productId) {
-            const index = products.findIndex(p => p.id === productId);
-            if (index !== -1) {
-                products.splice(index, 1);
-                updateCart();
-            }
-        }
-
-        cartItems.addEventListener('click', function (event) {
-            const target = event.target;
-            const row = target.closest('tr');
-            const productId = parseInt(row.dataset.id);
-
-            if (target.classList.contains('increase-qty')) {
-                const quantityInput = row.querySelector('.quantity');
-                quantityInput.value = parseInt(quantityInput.value) + 1;
-                updateProductQuantity(productId, parseInt(quantityInput.value));
-            } else if (target.classList.contains('decrease-qty')) {
-                const quantityInput = row.querySelector('.quantity');
-                if (parseInt(quantityInput.value) > 1) {
-                    quantityInput.value = parseInt(quantityInput.value) - 1;
-                    updateProductQuantity(productId, parseInt(quantityInput.value));
+            console.log(index);
+            console.log(element.id);
+            console.log(element);
+            const decreaseBtn = element.querySelector('.decrease_qty');
+            const increaseBtn = element.querySelector('.increase_qty');
+            const quantityInput = element.querySelector('.quantity');
+            const id = element.id;
+            // console.log(decreaseBtn);
+            quantityInput.value = 1;
+            increaseBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                console.log("increase");
+                
+                let quantity = parseInt(quantityInput.value);
+                if (quantity < 99) {
+                    quantity++;
+                    quantityInput.value = quantity;
                 }
-            } else if (target.classList.contains('remove-item')) {
-                removeProduct(productId);
-            }
+                runQuery("<?php echo $user_email; ?>",id,quantity)
+                // update_cart("<?php echo $user_email; ?>",16,quantity);
+            });
+            decreaseBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                console.log("decrease");
+                let quantity = parseInt(quantityInput.value);
+                if (quantity > 1) {
+                    quantity--;
+                    quantityInput.value = quantity;
+                }
+            });
+            
+            // UPDATE cart SET quantity = ${quantity} WHERE id = ${id} and user_email = '${email}'
+                    
         });
+       
 
-        cartItems.addEventListener('change', function (event) {
-            const target = event.target;
-            if (target.classList.contains('quantity')) {
-                const row = target.closest('tr');
-                const productId = parseInt(row.dataset.id);
-                updateProductQuantity(productId, parseInt(target.value));
-            }
-        });
 
-        // Initial cart update
-        updateCart();
     </script>
+    
+    </form>
 </body>
 
 </html>
+
+
+
